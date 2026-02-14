@@ -242,6 +242,91 @@
         ::-webkit-scrollbar {
             display: none;
         }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+
+            section {
+                min-height: 100vh;
+                padding: 30px 0;
+            }
+
+            .message {
+                font-size: 1.5rem;
+                line-height: 1.5;
+                margin: 12px 0;
+            }
+
+            .small-note {
+                font-size: 1.1rem;
+                margin-top: 8px;
+            }
+
+            .series-tag {
+                font-size: 0.65rem;
+                letter-spacing: 2px;
+                margin-bottom: 10px;
+            }
+
+            .heart-icon {
+                font-size: 1.2rem;
+                margin: 12px;
+            }
+
+            .secret-popup {
+                font-size: 0.95rem;
+                padding: 10px 14px;
+                border-radius: 14px;
+                max-width: 80vw;
+                white-space: normal;
+            }
+
+            .tap-secret {
+                -webkit-tap-highlight-color: rgba(232, 140, 161, 0.2);
+            }
+
+            #long-press-overlay {
+                padding: 30px 20px;
+            }
+
+            #long-press-overlay .message {
+                font-size: 1.3rem;
+            }
+
+            #long-press-overlay .small-note {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .message {
+                font-size: 1.3rem;
+            }
+
+            .small-note {
+                font-size: 1rem;
+            }
+
+            .series-tag {
+                font-size: 0.6rem;
+                letter-spacing: 1.5px;
+            }
+
+            .heart-icon {
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 20px 0;
+            }
+        }
     </style>
 </head>
 
@@ -251,7 +336,8 @@
 
     <!-- Background Music - Autoplay -->
     <audio id="bg-music" loop preload="auto" autoplay>
-        <source src="background-music.mp3" type="audio/mpeg">
+        <source src="https://drive.google.com/uc?export=download&id=1Fc9KzvK0T-CNs-bmlUY0o5VPRMYiYCa-"
+            type="audio/mpeg">
     </audio>
 
     <!-- Long Press Intimacy -->
