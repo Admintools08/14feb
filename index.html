@@ -202,15 +202,25 @@
             }
         }
 
+        /* SoundCloud Player Container */
+        #music-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 2000;
+            width: 300px;
+            max-width: 80vw;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(232, 140, 161, 0.2);
+            overflow: hidden;
+            opacity: 0.6;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
 
-
-        .series-tag {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            opacity: 0.5;
-            margin-bottom: 12px;
-            font-weight: bold;
+        #music-container:hover {
+            opacity: 1;
+            transform: translateY(-5px);
         }
 
         .cursor {
@@ -242,91 +252,6 @@
         ::-webkit-scrollbar {
             display: none;
         }
-
-        /* Mobile Responsive Styles */
-        @media (max-width: 768px) {
-            .container {
-                padding: 0 20px;
-            }
-
-            section {
-                min-height: 100vh;
-                padding: 30px 0;
-            }
-
-            .message {
-                font-size: 1.5rem;
-                line-height: 1.5;
-                margin: 12px 0;
-            }
-
-            .small-note {
-                font-size: 1.1rem;
-                margin-top: 8px;
-            }
-
-            .series-tag {
-                font-size: 0.65rem;
-                letter-spacing: 2px;
-                margin-bottom: 10px;
-            }
-
-            .heart-icon {
-                font-size: 1.2rem;
-                margin: 12px;
-            }
-
-            .secret-popup {
-                font-size: 0.95rem;
-                padding: 10px 14px;
-                border-radius: 14px;
-                max-width: 80vw;
-                white-space: normal;
-            }
-
-            .tap-secret {
-                -webkit-tap-highlight-color: rgba(232, 140, 161, 0.2);
-            }
-
-            #long-press-overlay {
-                padding: 30px 20px;
-            }
-
-            #long-press-overlay .message {
-                font-size: 1.3rem;
-            }
-
-            #long-press-overlay .small-note {
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 0 15px;
-            }
-
-            .message {
-                font-size: 1.3rem;
-            }
-
-            .small-note {
-                font-size: 1rem;
-            }
-
-            .series-tag {
-                font-size: 0.6rem;
-                letter-spacing: 1.5px;
-            }
-
-            .heart-icon {
-                font-size: 1rem;
-            }
-
-            section {
-                padding: 20px 0;
-            }
-        }
     </style>
 </head>
 
@@ -334,16 +259,17 @@
 
     <div id="particles"></div>
 
-    <!-- Background Music - SoundCloud Embed -->
-    <iframe id="bg-music" width="0" height="0" scrolling="no" frameborder="no" allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A29560218&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-        style="position: fixed; top: -9999px; left: -9999px;"></iframe>
+    <!-- Music Player Section (SoundCloud) -->
+    <div id="music-container">
+        <iframe width="100%" height="120" scrolling="no" frameborder="no" allow="autoplay"
+            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/29560218&color=%23e88ca1&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false"></iframe>
+    </div>
 
     <!-- Long Press Intimacy -->
     <div id="long-press-overlay">
         <div class="message visible">
             You're my Lobster.<br>
-            <span class="small-note">I'll be there for you.</span>
+            <span class="small-note">I'll be there for you. Always.</span>
         </div>
     </div>
 
@@ -358,7 +284,8 @@
             <div class="small-note">Scroll slowly to see our story unfold.</div>
         </section>
 
-        <!-- Poem Flow -->
+        <!-- Poem Sequence Begins -->
+
         <section>
             <div class="message">I will love you when you’re happy.</div>
             <div class="small-note">Better than a Joey special.</div>
@@ -367,15 +294,6 @@
         <section>
             <div class="message">I will love you when you’re sad.</div>
             <div class="small-note">"I'll be there for you."</div>
-        </section>
-
-        <section>
-            <div class="series-tag">Central Perk</div>
-            <div class="message">You are
-                <span class="tap-secret">my Lobster.
-                    <span class="secret-popup">See? Lobsters stay together forever.</span>
-                </span>
-            </div>
         </section>
 
         <section>
@@ -388,6 +306,7 @@
 
         <section>
             <div class="message">I will love you when you cry.</div>
+            <div class="small-note">I'll be the Monica to your Chandler.</div>
         </section>
 
         <section>
@@ -398,57 +317,59 @@
         <section>
             <div class="message">I will love you when we
                 <span class="tap-secret">argue.
-                    <span class="secret-popup">"We were on a break!" (But I'm never leaving).</span>
+                    <span class="secret-popup">"We were on a break!" (I'm never leaving).</span>
                 </span>
             </div>
         </section>
 
         <section>
             <div class="message">I will love you when you’re healthy.</div>
+        </section>
+
+        <section>
             <div class="message">I will love you when you’re sick.</div>
-            <div class="small-note">Even when you're being a 'Ross'.</div>
+            <div class="small-note">Even when you're being a 'Smelly Cat'.</div>
         </section>
 
+        <!-- Gratitude Mid-Section -->
         <section>
-            <div class="series-tag">The Miracle</div>
-            <div class="message">You're the Monica to my Chandler.</div>
-            <div class="small-note">My unexpected, perfect miracle.</div>
-        </section>
-
-        <!-- Gratitude -->
-        <section>
-            <div class="message" style="color: var(--highlight); font-size: 1.5rem;">And through it all...</div>
-            <div class="message">I am grateful for every morning
-                <span class="tap-secret">with you.
+            <div class="message" style="color: var(--highlight); font-size: 1.6rem;">Through the seasons...</div>
+            <div class="message">I am grateful for
+                <span class="tap-secret">us.
                     <span class="secret-popup">"I got off the plane."</span>
                 </span>
             </div>
         </section>
 
-        <section>
-            <div class="message">I am grateful for our shared silence.</div>
-            <div class="small-note">No words needed between lobsters.</div>
-        </section>
-
-        <!-- Climax -->
+        <!-- Climax Flow -->
         <section>
             <div class="message">I will love you when you’re mine.</div>
             <div class="heart-icon">❤</div>
+            <div class="small-note">Because you're my lobster.</div>
+        </section>
+
+        <section>
             <div class="message">I will love you when you’re not.</div>
-            <div class="small-note">Because you're my person.</div>
+            <div class="small-note">Across the hall or across the world.</div>
         </section>
 
         <section>
             <div class="message">I will love you when you love me.</div>
+        </section>
+
+        <section>
             <div class="message">I will love you when you don’t.</div>
         </section>
 
         <section>
             <div class="message" style="font-size: 1.5rem; color: var(--text-soft);">But most importantly...</div>
+        </section>
+
+        <section>
             <div class="message">
                 I will love you
-                <span class="tap-secret" style="font-weight: 700; color: var(--highlight); border-bottom: none;">Always.
-                    <span class="secret-popup">After all the seasons? Always.</span>
+                <span class="tap-secret" style="font-weight: 700; color: var(--highlight); border-bottom: none;">always.
+                    <span class="secret-popup">After ten seasons? Always.</span>
                 </span>
             </div>
         </section>
@@ -467,18 +388,18 @@
                 how deeply you’re loved.
             </div>
             <div class="heart-icon" style="font-size: 2.5rem; margin-top: 40px;">❤</div>
-            <div class="small-note" style="margin-top: 20px;">Welcome to the real world. You’re gonna love it.</div>
+            <div class="small-note" style="margin-top: 20px;">Welcome to the real world. It sucks. You’re gonna love it.
+            </div>
         </section>
     </div>
 
     <script>
-        const bgMusic = document.getElementById('bg-music');
         const particleContainer = document.getElementById('particles');
         const charms = ['🦞', '☕', '🛋️', '🏙️', '🚕', '✨'];
 
         // --- Particle Generation ---
         function createParticles() {
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 22; i++) {
                 const p = document.createElement('div');
                 p.className = 'sparkle';
                 const size = Math.random() * 5 + 2;
@@ -489,10 +410,10 @@
                 p.style.animationDuration = (Math.random() * 10 + 15) + 's';
                 particleContainer.appendChild(p);
             }
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 7; i++) {
                 const c = document.createElement('div');
                 c.className = 'charm';
-                c.innerText = charms[i];
+                c.innerText = charms[i % charms.length];
                 c.style.left = Math.random() * 100 + 'vw';
                 c.style.animationDelay = Math.random() * 20 + 's';
                 c.style.animationDuration = (Math.random() * 15 + 20) + 's';
@@ -504,7 +425,9 @@
         // --- Scroll Reveal ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('visible');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
         }, { threshold: 0.3 });
 
@@ -527,13 +450,14 @@
         let pressTimer;
         const overlay = document.getElementById('long-press-overlay');
         function startPress(e) {
-            if (e.target.closest('.tap-secret') || e.target.closest('button')) return;
+            if (e.target.closest('.tap-secret') || e.target.closest('iframe')) return;
             pressTimer = setTimeout(() => {
                 overlay.classList.add('active');
                 setTimeout(() => overlay.classList.remove('active'), 5000);
             }, 1000);
         }
         function endPress() { clearTimeout(pressTimer); }
+
         document.body.addEventListener('mousedown', startPress);
         document.body.addEventListener('mouseup', endPress);
         document.body.addEventListener('touchstart', startPress, { passive: true });
