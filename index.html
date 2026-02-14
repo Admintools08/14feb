@@ -335,9 +335,11 @@
     <div id="particles"></div>
 
     <!-- Background Music - Autoplay -->
-    <audio id="bg-music" loop preload="auto" muted>
+    <audio id="bg-music" loop preload="auto" crossorigin="anonymous">
+        <source src="https://docs.google.com/uc?export=download&id=1Fc9KzvK0T-CNs-bmlUY0o5VPRMYiYCa-" type="audio/mpeg">
         <source src="https://drive.google.com/uc?export=download&id=1Fc9KzvK0T-CNs-bmlUY0o5VPRMYiYCa-"
             type="audio/mpeg">
+        <source src="background-music.mp3" type="audio/mpeg">
     </audio>
 
     <!-- Long Press Intimacy -->
@@ -502,26 +504,33 @@
         }
         createParticles();
 
-        // --- Auto-play music with unmute on load ---
-        // Start muted autoplay immediately
-        bgMusic.play().catch(() => { });
+        // --- Robust Music Playback System ---
+        let musicPlaying = false;
+        bgMusic.volume = 0.7;
 
-        // Unmute on first user interaction
-        let musicStarted = false;
-        function startMusic() {
-            if (!musicStarted) {
-                bgMusic.muted = false;
-                bgMusic.play().catch(err => {
-                    console.log('Audio playback requires user interaction');
+        function playMusic() {
+            if (musicPlaying) return;
+
+            bgMusic.play()
+                .then(() => {
+                    musicPlaying = true;
+                    console.log('🎵 Music started');
+                })
+                .catch(err => {
+                    console.log('Waiting for user interaction:', err.name);
                 });
-                musicStarted = true;
-            }
         }
 
-        // Listen for any user interaction
-        ['click', 'touchstart', 'keydown', 'scroll'].forEach(event => {
-            document.addEventListener(event, startMusic, { once: true, passive: true });
+        // Try to play immediately
+        setTimeout(playMusic, 200);
+
+        // Play on any user interaction
+        ['click', 'touchstart', 'touchend', 'scroll', 'keydown', 'mousemove'].forEach(event => {
+            document.addEventListener(event, playMusic, { once: true, passive: true });
         });
+
+        // Retry if audio loads later
+        bgMusic.addEventListener('canplaythrough', playMusic, { once: true });
 
         // --- Scroll Reveal ---
         const observer = new IntersectionObserver((entries) => {
