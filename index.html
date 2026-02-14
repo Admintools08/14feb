@@ -334,13 +334,10 @@
 
     <div id="particles"></div>
 
-    <!-- Background Music - Autoplay -->
-    <audio id="bg-music" loop preload="auto" crossorigin="anonymous">
-        <source src="https://docs.google.com/uc?export=download&id=1Fc9KzvK0T-CNs-bmlUY0o5VPRMYiYCa-" type="audio/mpeg">
-        <source src="https://drive.google.com/uc?export=download&id=1Fc9KzvK0T-CNs-bmlUY0o5VPRMYiYCa-"
-            type="audio/mpeg">
-        <source src="background-music.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Background Music - SoundCloud Embed -->
+    <iframe id="bg-music" width="0" height="0" scrolling="no" frameborder="no" allow="autoplay"
+        src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%253Atracks%253A29560218&color=%23ff5500&auto_play=true&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+        style="position: fixed; top: -9999px; left: -9999px;"></iframe>
 
     <!-- Long Press Intimacy -->
     <div id="long-press-overlay">
@@ -503,34 +500,6 @@
             }
         }
         createParticles();
-
-        // --- Robust Music Playback System ---
-        let musicPlaying = false;
-        bgMusic.volume = 0.7;
-
-        function playMusic() {
-            if (musicPlaying) return;
-
-            bgMusic.play()
-                .then(() => {
-                    musicPlaying = true;
-                    console.log('🎵 Music started');
-                })
-                .catch(err => {
-                    console.log('Waiting for user interaction:', err.name);
-                });
-        }
-
-        // Try to play immediately
-        setTimeout(playMusic, 200);
-
-        // Play on any user interaction
-        ['click', 'touchstart', 'touchend', 'scroll', 'keydown', 'mousemove'].forEach(event => {
-            document.addEventListener(event, playMusic, { once: true, passive: true });
-        });
-
-        // Retry if audio loads later
-        bgMusic.addEventListener('canplaythrough', playMusic, { once: true });
 
         // --- Scroll Reveal ---
         const observer = new IntersectionObserver((entries) => {
