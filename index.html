@@ -335,7 +335,7 @@
     <div id="particles"></div>
 
     <!-- Background Music - Autoplay -->
-    <audio id="bg-music" loop preload="auto" autoplay>
+    <audio id="bg-music" loop preload="auto" muted>
         <source src="https://drive.google.com/uc?export=download&id=1Fc9KzvK0T-CNs-bmlUY0o5VPRMYiYCa-"
             type="audio/mpeg">
     </audio>
@@ -502,11 +502,26 @@
         }
         createParticles();
 
-        // --- Auto-play music with user interaction fallback ---
-        document.addEventListener('click', function initMusic() {
-            bgMusic.play().catch(() => { });
-            document.removeEventListener('click', initMusic);
-        }, { once: true });
+        // --- Auto-play music with unmute on load ---
+        // Start muted autoplay immediately
+        bgMusic.play().catch(() => { });
+
+        // Unmute on first user interaction
+        let musicStarted = false;
+        function startMusic() {
+            if (!musicStarted) {
+                bgMusic.muted = false;
+                bgMusic.play().catch(err => {
+                    console.log('Audio playback requires user interaction');
+                });
+                musicStarted = true;
+            }
+        }
+
+        // Listen for any user interaction
+        ['click', 'touchstart', 'keydown', 'scroll'].forEach(event => {
+            document.addEventListener(event, startMusic, { once: true, passive: true });
+        });
 
         // --- Scroll Reveal ---
         const observer = new IntersectionObserver((entries) => {
