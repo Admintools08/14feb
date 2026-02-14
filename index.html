@@ -36,6 +36,10 @@
             overflow-x: hidden;
         }
 
+        * {
+            scroll-behavior: smooth;
+        }
+
         /* Floating Particles & Charms */
         #particles {
             position: fixed;
@@ -447,21 +451,71 @@
             });
         });
 
-        // Long press
+        // Long press - Fixed to not trigger during scrolling
         let pressTimer;
+        let startX, startY;
+        let hasMoved = false;
         const overlay = document.getElementById('long-press-overlay');
+        const moveThreshold = 10; // pixels
+
         function startPress(e) {
+            // Ignore if clicking on interactive elements
             if (e.target.closest('.tap-secret') || e.target.closest('iframe')) return;
+
+            hasMoved = false;
+
+            // Store initial position
+            if (e.type === 'touchstart') {
+                startX = e.touches[0].clientX;
+                startY = e.touches[0].clientY;
+            } else {
+                startX = e.clientX;
+                startY = e.clientY;
+            }
+
+            // Set timer for long press
             pressTimer = setTimeout(() => {
-                overlay.classList.add('active');
-                setTimeout(() => overlay.classList.remove('active'), 5000);
+                if (!hasMoved) {
+                    overlay.classList.add('active');
+                    setTimeout(() => overlay.classList.remove('active'), 5000);
+                }
             }, 1000);
         }
-        function endPress() { clearTimeout(pressTimer); }
+
+        function checkMove(e) {
+            if (!pressTimer) return;
+
+            let currentX, currentY;
+            if (e.type === 'touchmove') {
+                currentX = e.touches[0].clientX;
+                currentY = e.touches[0].clientY;
+            } else {
+                currentX = e.clientX;
+                currentY = e.clientY;
+            }
+
+            // Calculate distance moved
+            const deltaX = Math.abs(currentX - startX);
+            const deltaY = Math.abs(currentY - startY);
+
+            // If moved more than threshold, cancel long press
+            if (deltaX > moveThreshold || deltaY > moveThreshold) {
+                hasMoved = true;
+                clearTimeout(pressTimer);
+                pressTimer = null;
+            }
+        }
+
+        function endPress() {
+            clearTimeout(pressTimer);
+            pressTimer = null;
+        }
 
         document.body.addEventListener('mousedown', startPress);
         document.body.addEventListener('mouseup', endPress);
+        document.body.addEventListener('mousemove', checkMove);
         document.body.addEventListener('touchstart', startPress, { passive: true });
+        document.body.addEventListener('touchmove', checkMove, { passive: true });
         document.body.addEventListener('touchend', endPress);
         window.oncontextmenu = (e) => { e.preventDefault(); return false; };
     </script>
